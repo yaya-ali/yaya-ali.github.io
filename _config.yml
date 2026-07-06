@@ -27,12 +27,16 @@ url: "https://yaya-ali.github.io"
 github:
   username: yaya-ali
 
+twitter:
+  username: yayasafi1
+
 social:
   name: Yahaya Ali Hassane
   email: yayasafihas@gmail.com
   links:
     - https://github.com/yaya-ali
-    - https://linkedin.com/in/yaya-ali-hassane-51055020b
+    - https://twitter.com/yayasafi1
+    - https://www.linkedin.com/in/ali-hassane-yaya-51055020b
 
 # Site Verification Settings
 webmaster_verifications:
@@ -78,7 +82,7 @@ pageviews:
 #     light — Use the light color scheme
 #     dark — Use the dark color scheme
 #
-theme_mode: dark
+theme_mode: # empty = follow system, with a light/dark toggle in the sidebar bottom
 
 # The CDN endpoint for media resources.
 # Notice that once it is assigned, the CDN url
