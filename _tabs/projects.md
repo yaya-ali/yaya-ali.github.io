@@ -18,11 +18,12 @@ A four-agent LLM pipeline — **Researcher → Writer → Fact-Checker → Polis
 
 ---
 
-### LLM Model Router with Budget Controls
+### RouteIQ — LLM Cost Router & Observability Gateway
+**[↗ GitHub](https://github.com/yaya-ali/routeiq)**
 
-`Next.js` `OpenAI API` `Anthropic API` `Redis (Upstash)` `Supabase` `Grafana`
+`Python` `FastAPI` `Redis` `Prometheus` `Grafana` `Docker` `NVIDIA NIM`
 
-An API gateway that classifies queries as easy/medium/hard and routes to the cheapest capable model — serving **80% of traffic on lower-cost tiers** with no quality drop. Atomic Redis spend cap fires Slack alerts at 90% budget and shuts off expensive routes automatically.
+An API gateway that routes every LLM request to the cheapest model that can handle it. A complexity classifier picks between a small and a large model per request; atomic Redis date-keyed counters enforce per-team daily budgets (HTTP 429 when exhausted, auto-reset at midnight UTC); every token, dollar, and millisecond lands on an auto-provisioned Grafana dashboard. **Measured 10.2% cost saving with 0% quality drop** on a reasoning-heavy eval set — eval-gated in CI so cost optimization can never silently degrade quality. Ships with a minimal chat UI and a quiz-generator demo as consumer apps.
 
 ---
 
