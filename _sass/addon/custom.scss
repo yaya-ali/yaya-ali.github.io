@@ -85,7 +85,6 @@ body {
   color: var(--text) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background var(--transition-slow), color var(--transition-slow);
 }
 
 /* ════════════════════════════════════════════
@@ -95,7 +94,6 @@ body {
   background: var(--bg-alt) !important;
   border-right: 1px solid var(--border) !important;
   box-shadow: 1px 0 0 var(--border) !important;
-  transition: background var(--transition-slow) !important;
 }
 
 /* Site name */
@@ -183,7 +181,6 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border-bottom: 1px solid var(--border) !important;
   box-shadow: none !important;
-  transition: background var(--transition-slow) !important;
 }
 
 html[data-bs-theme="light"] #topbar-wrapper,
@@ -205,7 +202,7 @@ article.card,
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-sm) !important;
   transition: box-shadow var(--transition), border-color var(--transition),
-              transform var(--transition), background var(--transition-slow) !important;
+              transform var(--transition) !important;
   overflow: hidden !important;
 }
 .post-preview:hover,
@@ -282,7 +279,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text) !important;
   font-weight: 700 !important;
   letter-spacing: -0.3px !important;
-  transition: color var(--transition-slow) !important;
 }
 
 /* Post title — serif display, gradient in dark, solid in light */
@@ -514,7 +510,6 @@ footer {
   border-top: 1px solid var(--border) !important;
   background: var(--bg-alt) !important;
   color: var(--text-4) !important;
-  transition: background var(--transition-slow) !important;
 }
 footer a {
   color: var(--text-4) !important;
@@ -589,10 +584,10 @@ footer a:hover { color: var(--accent) !important; }
    PAGE FADE IN
    ════════════════════════════════════════════ */
 #main-wrapper {
-  animation: fadeUp 0.35s ease-out both;
+  animation: fadeUp 0.16s ease-out both;
 }
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
