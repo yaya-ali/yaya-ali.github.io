@@ -1,0 +1,18 @@
+# Featured projects shown in the homepage hero band.
+- name: RouteIQ — LLM Cost Router
+  desc: API gateway that routes each request to the cheapest capable model, with per-team Redis budgets and a live Grafana dashboard.
+  metric: 10.2% cost saved · 0% quality drop · eval-gated CI
+  stack: FastAPI · Redis · Prometheus · Grafana · Docker
+  url: https://github.com/yaya-ali/routeiq
+
+- name: Multi-Agent Content Pipeline
+  desc: Four-agent LLM pipeline (Researcher → Writer → Fact-Checker → Polisher) with self-correction that re-routes failed fact-checks.
+  metric: Zero-touch article generation
+  stack: Next.js · LangGraph · Supabase · Grafana
+  url: https://github.com/yaya-ali/multi-agent-content-pipeline
+
+- name: Guardrail & Red-Team Harness
+  desc: Layered defense against jailbreaks, prompt injection, and PII extraction, with nightly CI regression tests.
+  metric: Jailbreak rate 18% → under 4%
+  stack: Python · Moderation API · GitHub Actions
+  url: https://github.com/yaya-ali

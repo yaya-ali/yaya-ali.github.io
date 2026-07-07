@@ -1,0 +1,29 @@
+<section class="hero">
+  <span class="hero-eyebrow"><span class="dot"></span> Ali Hassane Yaya · AI / Backend Engineer · Berlin</span>
+  <h1 class="hero-title">Shipping production-grade <span class="accent">LLM systems</span> that measurably cut cost.</h1>
+  <p class="hero-sub">
+    I build the infrastructure around AI — cost-aware model routing, multi-agent
+    workflows, evaluation harnesses and guardrails — and prove each one with real
+    numbers. MSc Data Science student, one year shipping AI features to real users.
+  </p>
+  <div class="hero-cta">
+    <a class="hero-btn primary" href="{{ '/projects/' | relative_url }}"><i class="fas fa-code"></i> View projects</a>
+    <a class="hero-btn ghost" href="{{ '/assets/Resume-Yahaya-Ali-Hassane.pdf' | relative_url }}" target="_blank" rel="noopener"><i class="fas fa-file-alt"></i> Résumé</a>
+    <a class="hero-btn ghost" href="https://github.com/yaya-ali" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+    <a class="hero-btn ghost" href="https://www.linkedin.com/in/ali-hassane-yaya-51055020b" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+  </div>
+</section>
+
+<section class="featured">
+  <div class="featured-label">Featured work</div>
+  <div class="featured-grid">
+    {% for p in site.data.featured %}
+    <a class="feat-card" href="{{ p.url }}" target="_blank" rel="noopener">
+      <h3>{{ p.name }}</h3>
+      <p class="feat-desc">{{ p.desc }}</p>
+      {% if p.metric %}<span class="feat-metric">{{ p.metric }}</span>{% endif %}
+      <span class="feat-stack">{{ p.stack }} <span class="feat-arrow">→</span></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>

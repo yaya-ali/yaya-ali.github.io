@@ -1,64 +1,74 @@
 ---
-title: "How I Cut LLM Costs by 80% with a Model Router"
+title: "Building an LLM Cost Router — and Measuring Whether It Actually Helps"
 date: 2025-04-20 10:00:00 +0200
 categories: [AI, Engineering]
-tags: [openai, anthropic, redis, cost-optimization, llm]
+tags: [llm, redis, cost-optimization, fastapi, observability]
 ---
 
-## The Problem
+Most teams call their strongest (most expensive) model for *every* request —
+including "summarize this in one sentence." That's wasteful: simple queries don't
+need the big model. So I built **RouteIQ**, an open gateway that routes each request
+to the cheapest model that can handle it, and — this is the part that matters —
+*measures* whether the routing actually saves money without hurting quality.
 
-When you're calling GPT-4 for every request — including simple ones like "summarize this in one sentence" — you're burning money unnecessarily. Not every query needs the most powerful model.
+> Source + full write-up: [github.com/yaya-ali/routeiq](https://github.com/yaya-ali/routeiq)
 
-## The Idea: Route by Complexity
+## The idea: route by complexity
 
-Classify each incoming query into one of three tiers, then route to the appropriate model:
+Every request hits a classifier that decides how hard it is, then routes accordingly:
 
 | Tier | Examples | Model |
 |------|----------|-------|
-| Easy | Formatting, simple Q&A, summarization | `gpt-4o-mini` |
-| Medium | Analysis, code review, multi-step reasoning | `gpt-4o` |
-| Hard | Complex research, long-form generation, nuanced judgment | `claude-opus` |
+| Cheap | Formatting, simple Q&A, summarization | small model (Llama 3.1 8B) |
+| Strong | Analysis, code, multi-step reasoning, long context | large model (Llama 3.3 70B) |
 
-## How Classification Works
+The v1 classifier is deliberately dumb — keyword and length heuristics, no ML:
 
-A lightweight classifier (itself a cheap model call) scores the query on:
-- Length and complexity of the prompt
-- Presence of code, math, or multi-step instructions
-- Historical patterns for similar queries
+```python
+REASONING_HINTS = ("step by step", "analyze", "compare", "trade-off", "debug", ...)
 
-```typescript
-async function classifyQuery(prompt: string): Promise<"easy" | "medium" | "hard"> {
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      { role: "system", content: CLASSIFIER_PROMPT },
-      { role: "user", content: prompt }
-    ],
-    max_tokens: 10,
-  });
-  return response.choices[0].message.content?.trim() as Tier;
-}
+def choose_model(prompt: str) -> tuple[str, str]:
+    if len(prompt) > 2000:                       return STRONG, "long context"
+    if any(h in prompt.lower() for h in REASONING_HINTS): return STRONG, "reasoning keywords"
+    return CHEAP, "simple query"
 ```
 
-## Budget Controls
+Ship the dumb version first, measure it, *then* make it smarter. The response always
+reports which model answered and why, so routing decisions are never a black box.
 
-The real risk with any routing system is unexpected cost spikes. I used **atomic Redis counters** to enforce hard limits:
+## Budget controls in Redis
 
-```typescript
-const current = await redis.incrbyfloat(`budget:${month}`, estimatedCost);
-if (current > MONTHLY_CAP * 0.9) {
-  await disableExpensiveRoutes();
-  await sendSlackAlert(current, MONTHLY_CAP);
-}
+The real risk with any routing system is a runaway bill. Each team gets a daily budget
+enforced by an atomic, date-keyed Redis counter:
+
+```python
+key = f"spend:{team}:{today}"          # the date in the key IS the daily reset
+spent = redis.incrbyfloat(key, cost)   # atomic — no races between requests
+if spent > DAILY_BUDGET: raise HTTPException(429, "budget exhausted")
 ```
 
-At 90% of the monthly budget, expensive routes shut off and a Slack alert fires. No surprise invoices.
+The date in the key resets the budget for free — tomorrow's requests hit a fresh key.
+No cron job, no reset logic. Over budget → HTTP 429 before any money is spent.
 
-## Results
+## Measuring it — the part most write-ups skip
 
-After two weeks in production:
-- **80% of traffic** handled by `gpt-4o-mini`
-- **~68% reduction** in monthly API spend
-- No measurable difference in user-reported quality
+A cost claim means nothing without a quality check. An eval suite runs every prompt
+through both the router and an always-strong baseline, comparing cost *and* answer
+quality, and it's wired into CI so a routing change that trades away too much quality
+fails the build.
 
-The classifier's own cost (gpt-4o-mini per query) is negligible vs. the savings from avoiding GPT-4 for simple tasks.
+On the current (deliberately reasoning-heavy) eval set:
+
+- **10.2% cost reduction** vs. always using the strong model
+- **0% quality drop** on keyword-coverage scoring
+
+That's a modest, *honest* number — savings scale with the share of simple traffic, so a
+production mix heavy on formatting and summarization would save far more. The point of
+the project isn't the headline figure; it's that the figure is measured and defended,
+not guessed.
+
+## What's next
+
+The heuristic classifier is the baseline to beat. The roadmap swaps it for a learned
+classifier and proves the upgrade with the same eval harness — plus per-request
+tracing and an LLM-as-judge scorer to replace keyword matching.
