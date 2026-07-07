@@ -870,6 +870,12 @@ footer a:hover { color: var(--accent) !important; }
   50%      { box-shadow: 0 0 0 7px rgba(0,0,0,0); }
 }
 
+/* ── Single-icon mode toggle: kill dropdown, show only the target-mode icon ── */
+.sidebar-bottom .dropdown-menu { display: none !important; }
+#mode-toggle i { display: none !important; }
+html[data-bs-theme="dark"] #mode-toggle i[data-theme-mode="light"] { display: inline-block !important; }
+html:not([data-bs-theme="dark"]) #mode-toggle i[data-theme-mode="dark"] { display: inline-block !important; }
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

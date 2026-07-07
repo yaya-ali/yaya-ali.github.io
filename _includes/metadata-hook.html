@@ -1,5 +1,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<!-- instant.page: preloads a page the moment you hover its link, so clicks feel instant -->
-<script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script>
+
+<!-- Turbo Drive: swaps page body on navigation instead of full reloads; prefetches links on hover -->
+<script type="module">
+  import "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.12/dist/turbo.es2017-esm.min.js";
+  let firstLoad = true;
+  document.addEventListener("turbo:load", () => {
+    if (firstLoad) { firstLoad = false; return; }
+    // Chirpy's per-page scripts init on DOMContentLoaded, which never refires
+    // after a Turbo body swap — replay it so search/TOC/tooltips rebind.
+    document.dispatchEvent(new Event("DOMContentLoaded", { bubbles: true }));
+  });
+</script>
+
+<!-- Single-button light/dark toggle (replaces Chirpy's 3-way dropdown) -->
+<script>
+  (function () {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest("#mode-toggle");
+      if (!btn) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var html = document.documentElement;
+      var next = html.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-bs-theme", next);
+      localStorage.setItem("mode", next);
+    }, true);
+    function stripDropdown() {
+      var btn = document.getElementById("mode-toggle");
+      if (btn) btn.removeAttribute("data-bs-toggle");
+    }
+    document.addEventListener("DOMContentLoaded", stripDropdown);
+    document.addEventListener("turbo:load", stripDropdown);
+  })();
+</script>
