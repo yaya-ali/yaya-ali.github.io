@@ -580,12 +580,8 @@ footer a:hover { color: var(--accent) !important; }
   color: var(--text);
 }
 
-/* ════════════════════════════════════════════
-   PAGE FADE IN
-   ════════════════════════════════════════════ */
-#main-wrapper {
-  animation: fadeUp 0.16s ease-out both;
-}
+/* keyframe kept for the home hero/featured entrance; NOT applied to
+   #main-wrapper or the sidebar so nothing re-animates on Turbo navigation */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -801,40 +797,52 @@ footer a:hover { color: var(--accent) !important; }
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
 }
 
-/* Staggered entrance for nav items */
-#sidebar .nav-item {
-  animation: navIn 0.4s ease-out both;
+/* Bottom row: mode toggle + socials, all one aligned line of equal chips */
+#sidebar .sidebar-bottom {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  width: 100% !important;
 }
-#sidebar .nav-item:nth-child(1) { animation-delay: 0.04s; }
-#sidebar .nav-item:nth-child(2) { animation-delay: 0.08s; }
-#sidebar .nav-item:nth-child(3) { animation-delay: 0.12s; }
-#sidebar .nav-item:nth-child(4) { animation-delay: 0.16s; }
-#sidebar .nav-item:nth-child(5) { animation-delay: 0.20s; }
-#sidebar .nav-item:nth-child(6) { animation-delay: 0.24s; }
-#sidebar .nav-item:nth-child(7) { animation-delay: 0.28s; }
-@keyframes navIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Bottom social icons: bordered chips */
+#sidebar .sidebar-bottom .icon-border { display: none !important; }
+#sidebar .sidebar-bottom .btn-group { margin: 0 !important; }
 #sidebar .sidebar-bottom a,
-#sidebar .sidebar-bottom button {
-  width: 30px; height: 30px;
+#sidebar .sidebar-bottom .btn-group,
+#sidebar .sidebar-bottom #mode-toggle {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  flex: 0 0 auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
   display: inline-flex !important;
-  align-items: center; justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
   border: 1px solid var(--border) !important;
   border-radius: 9px !important;
   background: var(--bg-card) !important;
+  color: var(--text-3) !important;
   transition: var(--transition) !important;
 }
+/* the toggle button sits inside a .btn-group wrapper — strip its own frame */
+#sidebar .sidebar-bottom .btn-group #mode-toggle {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: inherit !important;
+  background: transparent !important;
+}
 #sidebar .sidebar-bottom a:hover,
-#sidebar .sidebar-bottom button:hover {
+#sidebar .sidebar-bottom .btn-group:hover,
+#sidebar .sidebar-bottom .btn-group:hover #mode-toggle {
   border-color: var(--accent) !important;
   background: var(--accent-dim) !important;
   color: var(--accent) !important;
-  transform: translateY(-2px) !important;
 }
+#sidebar .sidebar-bottom a:hover { transform: translateY(-2px) !important; }
+#sidebar .sidebar-bottom .btn-group:hover { transform: translateY(-2px) !important; }
 
 /* ════════════════════════════════════════════
    SYSTEM MOTION — staggered cards, smooth everything
