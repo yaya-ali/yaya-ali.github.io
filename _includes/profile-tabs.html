@@ -1,0 +1,17 @@
+<nav class="profile-tabs" aria-label="Profile sections">
+  <a class="ptab {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">
+    <i class="fas fa-book-open"></i> Overview
+  </a>
+  <a class="ptab" href="#repos">
+    <i class="fas fa-bookmark"></i> Repositories <span class="ptab-count" id="repo-count"></span>
+  </a>
+  <a class="ptab" href="{{ '/projects/' | relative_url }}">
+    <i class="fas fa-code"></i> Projects
+  </a>
+  <a class="ptab" href="{{ '/archives/' | relative_url }}">
+    <i class="fas fa-pen-nib"></i> Writing <span class="ptab-count">{{ site.posts | size }}</span>
+  </a>
+  <a class="ptab" href="{{ '/resume/' | relative_url }}">
+    <i class="fas fa-file-alt"></i> Resume
+  </a>
+</nav>

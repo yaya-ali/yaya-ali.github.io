@@ -47,7 +47,9 @@ layout: default
 {% endif %}
 
 {% if paginator.page == 1 or paginator.page == nil %}
+  {% include profile-tabs.html %}
   {% include hero.html %}
+  {% include github-repos.html %}
   <div class="featured-label" style="margin-top:1.6rem">Latest writing</div>
 {% endif %}
 

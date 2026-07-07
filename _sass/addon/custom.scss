@@ -925,6 +925,96 @@ footer a:hover { color: var(--accent) !important; }
 }
 .gh-foot a:hover { color: var(--accent) !important; }
 
+/* ── GitHub-style profile tabs ── */
+.profile-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.4rem;
+}
+.ptab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  font-family: var(--font-sans) !important;
+  font-size: 0.86rem !important;
+  font-weight: 500;
+  color: var(--text-3) !important;
+  text-decoration: none !important;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: var(--transition);
+}
+.ptab i { font-size: 0.8rem; color: var(--text-4); transition: var(--transition); }
+.ptab:hover { color: var(--text) !important; }
+.ptab:hover i { color: var(--accent); }
+.ptab.active {
+  color: var(--text) !important;
+  font-weight: 600;
+  border-bottom-color: var(--accent);
+}
+.ptab.active i { color: var(--accent); }
+.ptab-count {
+  font-family: var(--font-mono) !important;
+  font-size: 0.68rem;
+  background: var(--accent-dim);
+  color: var(--accent-text);
+  border-radius: 100px;
+  padding: 1px 8px;
+}
+
+/* ── GitHub-style repo grid ── */
+.repos { padding: 0.4rem 0 1rem; }
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.85rem 1rem !important;
+  text-decoration: none !important;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition) !important;
+}
+.repo-card:hover {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transform: translateY(-2px) !important;
+}
+.repo-name {
+  font-family: var(--font-mono) !important;
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  color: var(--accent-text) !important;
+}
+.repo-desc {
+  font-size: 0.8rem !important;
+  color: var(--text-3) !important;
+  line-height: 1.5 !important;
+  margin: 0.3rem 0 0.6rem !important;
+  flex-grow: 1;
+  min-height: 1.2em;
+}
+.repo-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono) !important;
+  font-size: 0.7rem !important;
+  color: var(--text-4) !important;
+}
+.repo-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 /* ── Single-icon mode toggle: kill dropdown, show only the target-mode icon ── */
 .sidebar-bottom .dropdown-menu { display: none !important; }
 #mode-toggle i { display: none !important; }

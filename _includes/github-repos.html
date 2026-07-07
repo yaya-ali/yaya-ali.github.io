@@ -1,0 +1,63 @@
+<section class="repos" id="repos">
+  <div class="featured-label">Repositories</div>
+  <div id="repo-grid" class="repo-grid"></div>
+</section>
+
+<script>
+  (function () {
+    var grid = document.getElementById("repo-grid");
+    if (!grid || grid.dataset.rendered) return;
+    grid.dataset.rendered = "1";
+    var LANG_COLORS = {
+      "Python": "#3572A5", "TypeScript": "#3178c6", "JavaScript": "#f1e05a",
+      "HTML": "#e34c26", "CSS": "#563d7c", "Ruby": "#701516", "Swift": "#F05138",
+      "Shell": "#89e051", "Dockerfile": "#384d54", "SCSS": "#c6538c", "PHP": "#4F5D95"
+    };
+    fetch("https://api.github.com/users/yaya-ali/repos?sort=pushed&per_page=100")
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (repos) {
+        var own = repos.filter(function (r) { return !r.fork; });
+        var count = document.getElementById("repo-count");
+        if (count) count.textContent = own.length;
+        own.slice(0, 6).forEach(function (r) {
+          var card = document.createElement("a");
+          card.className = "repo-card";
+          card.href = r.html_url;
+          card.target = "_blank";
+          card.rel = "noopener";
+
+          var name = document.createElement("div");
+          name.className = "repo-name";
+          name.textContent = r.name;
+          card.appendChild(name);
+
+          var desc = document.createElement("p");
+          desc.className = "repo-desc";
+          desc.textContent = r.description || "";
+          card.appendChild(desc);
+
+          var meta = document.createElement("div");
+          meta.className = "repo-meta";
+          if (r.language) {
+            var dot = document.createElement("span");
+            dot.className = "repo-dot";
+            dot.style.background = LANG_COLORS[r.language] || "var(--accent)";
+            meta.appendChild(dot);
+            meta.appendChild(document.createTextNode(r.language));
+          }
+          if (r.stargazers_count > 0) {
+            meta.appendChild(document.createTextNode(" · ★ " + r.stargazers_count));
+          }
+          var upd = new Date(r.pushed_at);
+          meta.appendChild(document.createTextNode(" · updated " + upd.toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+          card.appendChild(meta);
+
+          grid.appendChild(card);
+        });
+      })
+      .catch(function () {
+        var s = document.getElementById("repos");
+        if (s) s.style.display = "none";
+      });
+  })();
+</script>
