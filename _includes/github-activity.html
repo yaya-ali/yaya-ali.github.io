@@ -1,14 +1,14 @@
 {% assign act = site.data.commit_activity %}
 {% if act and act.total > 0 %}
 <section class="gh-activity">
-  <div class="featured-label">Commits to this site</div>
+  <div class="featured-label">Coding activity</div>
   <div class="gh-card">
-    <div class="gh-grid" aria-label="Commit activity for this portfolio">
+    <div class="gh-grid" aria-label="Commit activity across my projects over the last year">
       {% for d in act.days %}<span class="gh-cell l{{ d.level }}" title="{{ d.count }} commit{% if d.count != 1 %}s{% endif %} on {{ d.date }}"></span>{% endfor %}
     </div>
     <div class="gh-foot">
-      <span>{{ act.total }} commits across {{ act.active_days }} days building this site</span>
-      <a href="https://github.com/yaya-ali/yaya-ali.github.io" target="_blank" rel="noopener">view repo →</a>
+      <span>{{ act.total }} commits across {{ act.active_days }} active days · past year, all projects</span>
+      <a href="https://github.com/yaya-ali" target="_blank" rel="noopener">github.com/yaya-ali →</a>
     </div>
   </div>
 </section>
