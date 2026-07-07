@@ -758,3 +758,129 @@ footer a:hover { color: var(--accent) !important; }
   .hero-btn { padding: 8px 14px !important; font-size: 0.83rem !important; }
 }
 
+/* ════════════════════════════════════════════
+   SIDEBAR v2 — modern, alive
+   ════════════════════════════════════════════ */
+#sidebar {
+  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 130%) !important;
+}
+
+/* Avatar: terracotta ring + lift */
+#sidebar .avatar {
+  position: relative;
+}
+#sidebar .avatar > img,
+#sidebar img.rounded-circle {
+  border: 3px solid transparent !important;
+  background:
+    linear-gradient(var(--bg-alt), var(--bg-alt)) padding-box,
+    linear-gradient(135deg, var(--accent), var(--accent-soft) 60%, transparent) border-box !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow var(--transition) !important;
+}
+#sidebar .avatar > img:hover,
+#sidebar img.rounded-circle:hover {
+  transform: scale(1.06) rotate(2deg) !important;
+  box-shadow: var(--shadow-lg), 0 0 24px var(--accent-glow) !important;
+}
+
+/* Site title: serif, tight */
+#sidebar .site-title a {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  font-size: 1.35rem !important;
+  letter-spacing: -0.3px !important;
+}
+
+/* Nav: pill hover that slides */
+#sidebar .nav-link {
+  position: relative !important;
+  overflow: hidden !important;
+}
+#sidebar .nav-link:hover {
+  transform: translateX(3px) !important;
+}
+#sidebar .nav-link.active,
+#sidebar li.active > .nav-link {
+  box-shadow: inset 2.5px 0 0 var(--accent) !important;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
+}
+
+/* Staggered entrance for nav items */
+#sidebar .nav-item {
+  animation: navIn 0.4s ease-out both;
+}
+#sidebar .nav-item:nth-child(1) { animation-delay: 0.04s; }
+#sidebar .nav-item:nth-child(2) { animation-delay: 0.08s; }
+#sidebar .nav-item:nth-child(3) { animation-delay: 0.12s; }
+#sidebar .nav-item:nth-child(4) { animation-delay: 0.16s; }
+#sidebar .nav-item:nth-child(5) { animation-delay: 0.20s; }
+#sidebar .nav-item:nth-child(6) { animation-delay: 0.24s; }
+#sidebar .nav-item:nth-child(7) { animation-delay: 0.28s; }
+@keyframes navIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Bottom social icons: bordered chips */
+#sidebar .sidebar-bottom a,
+#sidebar .sidebar-bottom button {
+  width: 30px; height: 30px;
+  display: inline-flex !important;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--border) !important;
+  border-radius: 9px !important;
+  background: var(--bg-card) !important;
+  transition: var(--transition) !important;
+}
+#sidebar .sidebar-bottom a:hover,
+#sidebar .sidebar-bottom button:hover {
+  border-color: var(--accent) !important;
+  background: var(--accent-dim) !important;
+  color: var(--accent) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ════════════════════════════════════════════
+   SYSTEM MOTION — staggered cards, smooth everything
+   ════════════════════════════════════════════ */
+#post-list .card-wrapper {
+  animation: fadeUp 0.45s ease-out both;
+}
+#post-list .card-wrapper:nth-child(1) { animation-delay: 0.05s; }
+#post-list .card-wrapper:nth-child(2) { animation-delay: 0.10s; }
+#post-list .card-wrapper:nth-child(3) { animation-delay: 0.15s; }
+#post-list .card-wrapper:nth-child(4) { animation-delay: 0.20s; }
+#post-list .card-wrapper:nth-child(5) { animation-delay: 0.25s; }
+
+.featured-grid .feat-card:nth-child(1) { animation: fadeUp 0.45s ease-out 0.10s both; }
+.featured-grid .feat-card:nth-child(2) { animation: fadeUp 0.45s ease-out 0.18s both; }
+.featured-grid .feat-card:nth-child(3) { animation: fadeUp 0.45s ease-out 0.26s both; }
+
+/* Featured card metric pulses gently on card hover */
+.feat-card:hover .feat-metric {
+  background: var(--accent-glow) !important;
+  transition: background var(--transition) !important;
+}
+.feat-card .feat-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.feat-card:hover .feat-arrow { transform: translateX(4px); }
+
+/* Hero eyebrow dot: live pulse */
+.hero-eyebrow .dot { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--accent-glow); }
+  50%      { box-shadow: 0 0 0 7px rgba(0,0,0,0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
