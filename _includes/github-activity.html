@@ -1,0 +1,38 @@
+<section class="gh-activity">
+  <div class="featured-label">Open-source activity</div>
+  <div class="gh-card">
+    <div id="gh-grid" class="gh-grid" aria-label="GitHub contribution calendar"></div>
+    <div class="gh-foot">
+      <span id="gh-total"></span>
+      <a href="https://github.com/yaya-ali" target="_blank" rel="noopener">github.com/yaya-ali →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var grid = document.getElementById("gh-grid");
+    if (!grid || grid.dataset.rendered) return;
+    grid.dataset.rendered = "1";
+    fetch("https://github-contributions-api.jogruber.de/v4/yaya-ali?y=last")
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var days = data.contributions || [];
+        var frag = document.createDocumentFragment();
+        days.forEach(function (d) {
+          var cell = document.createElement("span");
+          cell.className = "gh-cell l" + d.level;
+          cell.title = d.count + " contributions on " + d.date;
+          frag.appendChild(cell);
+        });
+        grid.appendChild(frag);
+        var total = Object.values(data.total || {})[0] || 0;
+        var t = document.getElementById("gh-total");
+        if (t) t.textContent = total + " contributions in the last year";
+      })
+      .catch(function () {
+        var card = grid.closest(".gh-activity");
+        if (card) card.style.display = "none";
+      });
+  })();
+</script>
