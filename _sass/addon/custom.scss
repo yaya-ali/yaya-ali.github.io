@@ -925,6 +925,63 @@ footer a:hover { color: var(--accent) !important; }
 }
 .gh-foot a:hover { color: var(--accent) !important; }
 
+/* ── Sidebar: GitHub-profile header ── */
+#sidebar .profile-wrapper {
+  text-align: left !important;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+#sidebar #avatar {
+  width: 96px !important;
+  height: 96px !important;
+  margin-bottom: 0.7rem;
+}
+#sidebar #avatar img { width: 96px !important; height: 96px !important; }
+#sidebar .site-title a,
+#sidebar .site-title {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
+  text-align: left !important;
+  margin: 0 !important;
+}
+.profile-handle {
+  font-family: var(--font-mono) !important;
+  font-size: 0.76rem;
+  color: var(--text-4);
+  margin: 2px 0 8px;
+}
+#sidebar .site-subtitle {
+  text-align: left !important;
+  font-style: normal !important;
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important;
+  color: var(--text-3) !important;
+  margin: 0 0 10px !important;
+}
+.profile-meta {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pmeta {
+  font-size: 0.74rem;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pmeta i { color: var(--text-4); font-size: 0.7rem; }
+.pmeta a { color: var(--text-3) !important; text-decoration: none !important; }
+.pmeta a:hover { color: var(--accent) !important; }
+.pmeta:last-child i { color: var(--accent); }
+.pmeta:last-child { color: var(--accent-text); font-weight: 500; }
+
 /* ── GitHub-style profile tabs ── */
 .profile-tabs {
   display: flex;
