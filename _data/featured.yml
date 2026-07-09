@@ -11,8 +11,8 @@
   stack: Next.js · LangGraph · Supabase · Grafana
   url: https://github.com/yaya-ali/multi-agent-content-pipeline
 
-- name: Guardrail & Red-Team Harness
-  desc: Layered defense against jailbreaks, prompt injection, and PII extraction, with nightly CI regression tests.
-  metric: Jailbreak rate 18% → under 4%
-  stack: Python · Moderation API · GitHub Actions
-  url: https://github.com/yaya-ali
+- name: Retention Engine — Churn Risk & Recommender
+  desc: Predicts which e-commerce orders will produce an unhappy, likely-to-churn customer at order time, with review-text pain-point mining and a hybrid recommender.
+  metric: 0.75 ROC-AUC · 75% recall · SHAP-explained · ≈€58k net
+  stack: LightGBM · scikit-learn · SHAP · Streamlit · Docker
+  url: https://github.com/yaya-ali/retention-engine
