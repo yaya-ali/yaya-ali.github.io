@@ -16,3 +16,9 @@
   metric: 0.75 ROC-AUC · 75% recall · SHAP-explained · ≈€58k net
   stack: LightGBM · scikit-learn · SHAP · Streamlit · Docker
   url: https://github.com/yaya-ali/retention-engine
+
+- name: Agentic RAG — EU AI Act
+  desc: Corrective RAG that grades its own retrieval and self-corrects with a live web search before answering. Hybrid dense+BM25 retrieval fused with Reciprocal Rank Fusion.
+  metric: Hybrid retrieval · self-grading · web fallback · cited answers
+  stack: LangGraph · ChromaDB · BM25 · FastAPI · Docker · NVIDIA NIM
+  url: https://github.com/yaya-ali/agentic-rag
